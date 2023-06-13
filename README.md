@@ -4,10 +4,9 @@
 <p>Nosso objetivo é treinar uma rede neural utilizando dados experimentais e teóricos sobre MOFs, a fim de desenvolver um modelo capaz de prever propriedades desses materiais com precisão. Para isso, iremos coletar um conjunto de dados contendo informações estruturais, composicionais e propriedades conhecidas de MOFs.<p>
 <p>A rede neural será treinada utilizando algoritmos de aprendizado de máquina, a fim de estabelecer padrões e correlações entre as características dos MOFs e suas propriedades. Uma vez treinada, a rede neural poderá ser utilizada para supor propriedades de MOFs desconhecidos ou não caracterizados experimentalmente.<p>
 Esperamos que essa abordagem baseada em redes neurais permita uma análise rápida e precisa de propriedades de MOFs, proporcionando uma ferramenta útil para a seleção e otimização de materiais em pesquisas relacionadas a esses materiais porosos.<p>
+
 ## Colaboradores✨
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
+
 <table>
   <tr>
 <table>
