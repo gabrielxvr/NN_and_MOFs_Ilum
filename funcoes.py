@@ -3,6 +3,7 @@ import requests
 from pymatgen.core.structure import Structure
 import numpy as np
 import pandas as pd
+import random as rd
 from matminer.featurizers.structure import GlobalSymmetryFeatures
 from matminer.featurizers.composition import ElementProperty
 
@@ -167,48 +168,53 @@ def extrair_cif(df_mof,minimo):
     #df_composition_cif.to_csv('df_composition_cif.csv',index=False) #exportar tabela se necessário
     return df_mof
 
-def gene_cnb(valor_max_caixa):
-    """Gera um gene válido para o problema das caixas não binárias
+def gene_mof(valor_max, valor_min):
+    """Gera um gene válido para as mofs
     
     Args:
-        valor_max_caixa: Valor máximo que a caixa pode assumir
+        valor_max: Valor máximo do gene
+        valor_min: Valor mínimo do gene
     
     Return:
-        Um valor entre zero e o máximo.
+        Um valor entre o mínimo e o máximo.
     """
-    gene = rd.randint(0, valor_max_caixa)
+    gene = rd.randint(valor_min, valor_max)
     return gene
 
-def individuo_cnb(n, valor_max_caixa):
-    """Gera um indivíduo para o problema das caixas não binárias
+def individuo_mof(n, valor_max_elementos):
+    """Gera um indivíduo para o problema das mofs
     
     Args:
-        n: número de genes do indivíduo
-        valor_max_caixa: Valor máximo que a caixa pode assumir
+        n: número de elementos presentes
+        valor_max_elementos: Quantidade máxima de cada elemento da mof
         
     Return:
-        Uma lista com n genes. Cada gene é um valor entre zero e o valor máximo dos genes.
+        Uma lista com n genes.
     """
-    individuo = []
+    gene_spacegroup_num = gene_mof(230, 1)
+    gene_crystal_system_int = gene_mof(7, 1)
+    gene_n_symmetry_ops = gene_mof(12, 1)
+    individuo = [gene_spacegroup_num, gene_crystal_system_int, gene_n_symmetry_ops]
+    
     for _ in range(n):
-        gene = gene_cnb(valor_max_caixa)
+        gene = gene_mof(valor_max_elementos, 0)
         individuo.append(gene)
     return individuo
 
-def populacao_cnb(tamanho, n, valor_max_caixa):
-    """Cria uma população para o problema das caixas binárias
+def populacao_mof(tamanho, n, valor_max_elementos):
+    """Cria uma população para o problema das mofs
     
     Args:
-        n: Número de genes de cada indivíduo
         tamanho: Número de Indivíduos
-        valor_max_caixa: Valor máximo que a caixa pode assumir
+        n: número de elementos presentes
+        valor_max_elementos: Quantidade máxima de cada elemento da mof
     
     Return:
         Uma lista contendo cada indivíduo
     """
     populacao = []
     for _ in range(tamanho):
-        populacao.append(individuo_cnb(n, valor_max_caixa))
+        populacao.append(individuo_mof(n, valor_max_elementos))
     return populacao
 
 def cruzamento_ponto_simples(pai, mae):
@@ -228,18 +234,29 @@ def cruzamento_ponto_simples(pai, mae):
     
     return filho1, filho2
 
-def mutacao_cnb(individuo, valor_max_caixa):
-    """Realiza a mutação de um gene na problema das caixas binárias
+def mutacao_mof(individuo, valor_max_elementos):
+    """Realiza a mutação de um gene no problema das mofs
     
     Args:
         individuo: uma lista representando o individuo no problema das caixas binárias
-        valor_max_caixa: Valor máximo que a caixa pode assumir
+        valor_max_elementos: Quantidade máxima de cada elemento da mof
         
     Return:
         Um indivíduo com um gene mutado.
     """
     gene_a_ser_mutado = rd.randint(0, len(individuo) - 1)
-    individuo[gene_a_ser_mutado] = gene_cnb(valor_max_caixa)
+    if gene_a_ser_mutado == 0:
+        individuo[gene_a_ser_mutado] = gene_mof(230, 1)
+        
+    elif gene_a_ser_mutado == 1:
+        individuo[gene_a_ser_mutado] = gene_mof(7, 1)
+    
+    elif gene_a_ser_mutado == 2:
+        individuo[gene_a_ser_mutado] = gene_mof(12, 1)
+    
+    else:
+        individuo[gene_a_ser_mutado] = gene_mof(valor_max_elementos, 0)
+    
     return individuo
 
 def selecao_torneio_min(populacao, fitness, tamanho_torneio=3):
