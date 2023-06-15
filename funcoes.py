@@ -161,8 +161,120 @@ def extrair_cif(df_mof,minimo):
     df_composition_cif = pd.concat([df,df_composition],axis=1) #une os dados estruturais-quimicos com o DataFrame principal
     
     df_mof = df_mof.drop(labels='cif', axis=1)
-    df_mof = pd.concat([df_mof,df_cif],axis=1)
+    df_mof = pd.concat([df_mof,df_composition_cif],axis=1)
     
     #display(df_composition_cif) #exibir se necessário
     #df_composition_cif.to_csv('df_composition_cif.csv',index=False) #exportar tabela se necessário
     return df_mof
+
+def gene_cnb(valor_max_caixa):
+    """Gera um gene válido para o problema das caixas não binárias
+    
+    Args:
+        valor_max_caixa: Valor máximo que a caixa pode assumir
+    
+    Return:
+        Um valor entre zero e o máximo.
+    """
+    gene = rd.randint(0, valor_max_caixa)
+    return gene
+
+def individuo_cnb(n, valor_max_caixa):
+    """Gera um indivíduo para o problema das caixas não binárias
+    
+    Args:
+        n: número de genes do indivíduo
+        valor_max_caixa: Valor máximo que a caixa pode assumir
+        
+    Return:
+        Uma lista com n genes. Cada gene é um valor entre zero e o valor máximo dos genes.
+    """
+    individuo = []
+    for _ in range(n):
+        gene = gene_cnb(valor_max_caixa)
+        individuo.append(gene)
+    return individuo
+
+def populacao_cnb(tamanho, n, valor_max_caixa):
+    """Cria uma população para o problema das caixas binárias
+    
+    Args:
+        n: Número de genes de cada indivíduo
+        tamanho: Número de Indivíduos
+        valor_max_caixa: Valor máximo que a caixa pode assumir
+    
+    Return:
+        Uma lista contendo cada indivíduo
+    """
+    populacao = []
+    for _ in range(tamanho):
+        populacao.append(individuo_cnb(n, valor_max_caixa))
+    return populacao
+
+def cruzamento_ponto_simples(pai, mae):
+    """Operador de cruzamento de ponto simples
+    
+    Args:
+        pai: uma lista representando um indivíduo
+        mão: uma lista representando um indivíduo
+    
+    Returns:
+        Duas listas, sendo que cada uma representa um filho dos pais que foram os argumentos
+    """
+    ponto_de_corte = rd.randint(1, len(pai) - 1)
+    
+    filho1 = pai[:ponto_de_corte] + mae[ponto_de_corte:]
+    filho2 = mae[:ponto_de_corte] + pai[ponto_de_corte:]
+    
+    return filho1, filho2
+
+def mutacao_cnb(individuo, valor_max_caixa):
+    """Realiza a mutação de um gene na problema das caixas binárias
+    
+    Args:
+        individuo: uma lista representando o individuo no problema das caixas binárias
+        valor_max_caixa: Valor máximo que a caixa pode assumir
+        
+    Return:
+        Um indivíduo com um gene mutado.
+    """
+    gene_a_ser_mutado = rd.randint(0, len(individuo) - 1)
+    individuo[gene_a_ser_mutado] = gene_cnb(valor_max_caixa)
+    return individuo
+
+def selecao_torneio_min(populacao, fitness, tamanho_torneio=3):
+    """Faz a seleção de uma população usando torneio.
+    Nota: da forma que está implementada, só funciona em problemas de
+    minimização.
+    Args:
+      populacao: população do problema
+      fitness: lista com os valores de fitness dos individuos da população
+      tamanho_torneio: quantidade de invidiuos que batalham entre si
+    Returns:
+      Individuos selecionados. Lista com os individuos selecionados com mesmo
+      tamanho do argumento `populacao`.
+    """
+    selecionados = []
+
+    # criamos essa variável para associar cada individuo com seu valor de fitness
+    par_populacao_fitness = list(zip(populacao, fitness))
+
+    # vamos fazer len(populacao) torneios! Que comecem os jogos!
+    for _ in range(len(populacao)):
+        combatentes = rd.sample(par_populacao_fitness, tamanho_torneio)
+
+        # é assim que se escreve infinito em python
+        minimo_fitness = float("inf")
+
+        for par_individuo_fitness in combatentes:
+            individuo = par_individuo_fitness[0]
+            fit = par_individuo_fitness[1]
+
+            # queremos o individuo de menor fitness
+            if fit < minimo_fitness:
+                selecionado = individuo
+                minimo_fitness = fit
+
+        selecionados.append(selecionado)
+
+    return selecionados
