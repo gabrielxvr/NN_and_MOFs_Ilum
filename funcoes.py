@@ -160,6 +160,9 @@ def extrair_cif(df_mof,minimo):
     df = df.drop(['composition'],axis=1) #retura a coluna 'composition', já foi desempacotada
     df_composition_cif = pd.concat([df,df_composition],axis=1) #une os dados estruturais-quimicos com o DataFrame principal
     
+    df_mof = df_mof.drop(labels='cif', axis=1)
+    df_mof = pd.concat([df_mof,df_cif],axis=1)
+    
     #display(df_composition_cif) #exibir se necessário
     #df_composition_cif.to_csv('df_composition_cif.csv',index=False) #exportar tabela se necessário
-    return df_composition_cif
+    return df_mof
