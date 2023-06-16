@@ -14,15 +14,19 @@ As MOFs são materiais altamente porosos com estruturas cristalinas formadas por
 <p align="center">
   <img src="https://webinftest.web.its.manchester.ac.uk/wp-content/uploads/2021/06/What-are-MOFs2-1024x486.png" alt="Exemplo Estrutural de MOFs" width="300">
 </p>
+A abordagem proposta neste projeto é a utilização de redes neurais, que são modelos computacionais inspirados no funcionamento do cérebro humano. Redes neurais são capazes de aprender padrões complexos a partir de conjuntos de dados e podem ser treinadas para realizar previsões e estimativas com base nessas informações.
 
-Usando técnicas computacionais, é possível extrair informações relevantes das características físico-químicas de diferentes MOFs, como a composição química, a estrutura cristalina e as propriedades eletrônicas. Essas informações podem ser usadas como entrada para um modelo de rede neural treinado para realizar previsões sobre o tamanho de uma MOF com base nessas características.
+Por meio da computação em Python, será implementado um modelo de redes neurais que receberá características físico-químicas das MOFs como entrada e fornecerá uma predição do VOID FRACTION como saída. Essas características podem incluir propriedades estruturais, características dos ligantes e íons metálicos, entre outros parâmetros relevantes.
 
-A aplicação de redes neurais nesse contexto permite capturar padrões complexos e não lineares nas relações entre as características físico-químicas e o tamanho das MOFs. Através de um processo de treinamento, o modelo de rede neural aprenderá a mapear as características de entrada para estimativas precisas do tamanho desejado da MOF.
-
-Usando Python como linguagem de programação, é possível implementar redes neurais utilizando bibliotecas especializadas, como TensorFlow, PyTorch ou Keras. Essas bibliotecas fornecem uma variedade de ferramentas e recursos para construir, treinar e avaliar modelos de redes neurais de forma eficiente.
-
-Ao alcançar o objetivo de prever o tamanho de MOFs com base em características físico-químicas usando redes neurais, é possível acelerar o processo de projeto e síntese de MOFs, fornecendo uma abordagem computacionalmente eficiente e econômica para identificar MOFs com tamanhos específicos para aplicações desejadas.
+O objetivo final é construir um modelo de redes neurais preciso e confiável, capaz de prever o VOID FRACTION de MOFs com base em características físico-químicas específicas. Isso pode contribuir para a seleção e o design racional de MOFs com propriedades desejadas, acelerando o processo de desenvolvimento de novos materiais porosos com aplicações em áreas como armazenamento de gases, separação seletiva de substâncias e catálise.
 <h>
+## Interpretação do Código
+- Importações
+- Tratamento de Dados
+- Código e Discussão
+- Divisão Treino Teste
+- Algoritmo Genético?
+
 ## Bibliotecas Utilizadas
 
 O projeto utiliza as seguintes bibliotecas:
