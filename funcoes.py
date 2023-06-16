@@ -151,6 +151,7 @@ def extrair_cif(df_mof,minimo):
     #print('df_sem_corte', df)
 
     df = df.iloc[:,1:7] #corta o dataframe por index especificos
+    df = df.drop(labels=['crystal_system','is_centrosymmetric'],axis=1)
 
     composition_list = [] #armazena os dicts com os elementos e suas quantidades nas MOF's
     for i in range(0,len(df['composition'])):
