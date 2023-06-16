@@ -1,9 +1,43 @@
+
 # Redes Neurais e MOFs
-<p>MOFs, ou estruturas metal-orgânicas, são materiais porosos compostos por íons metálicos e ligantes orgânicos interconectados. Sua estrutura porosa oferece alta área superficial e sítios ativos. Eles são sintetizados através da reação entre íons metálicos e ligantes orgânicos, resultando em uma estrutura cristalina ordenada. Os MOFs possuem diversas aplicações, como armazenamento de gases, separação de misturas, catálise e liberação controlada de medicamentos. Sua versatilidade se dá pela possibilidade de escolher diferentes íons metálicos e ligantes orgânicos, além da capacidade de funcionalização através de modificação pós-sintética. Em suma, os MOFs são materiais porosos altamente versáteis com amplas aplicações em ciência e tecnologia.<p>
-<p>Neste trabalho, propomos a utilização de redes neurais como ferramenta para supor propriedades de MOFs. As redes neurais são modelos computacionais inspirados no funcionamento do cérebro humano, que têm demonstrado excelentes capacidades de aprendizado e predição em diversas áreas.<p>
-<p>Nosso objetivo é treinar uma rede neural utilizando dados experimentais e teóricos sobre MOFs, a fim de desenvolver um modelo capaz de prever propriedades desses materiais com precisão. Para isso, iremos coletar um conjunto de dados contendo informações estruturais, composicionais e propriedades conhecidas de MOFs.<p>
-<p>A rede neural será treinada utilizando algoritmos de aprendizado de máquina, a fim de estabelecer padrões e correlações entre as características dos MOFs e suas propriedades. Uma vez treinada, a rede neural poderá ser utilizada para supor propriedades de MOFs desconhecidos ou não caracterizados experimentalmente.<p>
-Esperamos que essa abordagem baseada em redes neurais permita uma análise rápida e precisa de propriedades de MOFs, proporcionando uma ferramenta útil para a seleção e otimização de materiais em pesquisas relacionadas a esses materiais porosos.<p>
+### Diciplina - Redes Neurais e Algoritmo Genético
+<h>
+<p align="center">
+<img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>
+</p>
+<h>
+
+### Objetivo do Trabalho
+Por meio de várias características físico-químicas prever uma MOF (Metal-Organic Framework) com o tamanho de poro desejado, usando computação em Python por redes neurais é utilizar técnicas de aprendizado de máquina, especificamente redes neurais, para criar um modelo preditivo capaz de estimar o tamanho de uma MOF com base em suas características físico-químicas.
+
+As MOFs são materiais altamente porosos com estruturas cristalinas formadas por ligações entre íons metálicos ou clusters metálicos e ligantes orgânicos. Seu tamanho, como a área de superfície específica, a porosidade e a distribuição de tamanho de poro, é uma característica crucial que afeta suas propriedades e aplicações.
+<p align="center">
+  <img src="https://webinftest.web.its.manchester.ac.uk/wp-content/uploads/2021/06/What-are-MOFs2-1024x486.png" alt="Exemplo Estrutural de MOFs" width="300">
+</p>
+
+Usando técnicas computacionais, é possível extrair informações relevantes das características físico-químicas de diferentes MOFs, como a composição química, a estrutura cristalina e as propriedades eletrônicas. Essas informações podem ser usadas como entrada para um modelo de rede neural treinado para realizar previsões sobre o tamanho de uma MOF com base nessas características.
+
+A aplicação de redes neurais nesse contexto permite capturar padrões complexos e não lineares nas relações entre as características físico-químicas e o tamanho das MOFs. Através de um processo de treinamento, o modelo de rede neural aprenderá a mapear as características de entrada para estimativas precisas do tamanho desejado da MOF.
+
+Usando Python como linguagem de programação, é possível implementar redes neurais utilizando bibliotecas especializadas, como TensorFlow, PyTorch ou Keras. Essas bibliotecas fornecem uma variedade de ferramentas e recursos para construir, treinar e avaliar modelos de redes neurais de forma eficiente.
+
+Ao alcançar o objetivo de prever o tamanho de MOFs com base em características físico-químicas usando redes neurais, é possível acelerar o processo de projeto e síntese de MOFs, fornecendo uma abordagem computacionalmente eficiente e econômica para identificar MOFs com tamanhos específicos para aplicações desejadas.
+<h>
+## Bibliotecas Utilizadas
+
+O projeto utiliza as seguintes bibliotecas:
+
+- [PyTorch](https://pytorch.org/): Framework de aprendizado de máquina de código aberto.
+- [seaborn](https://seaborn.pydata.org/): Biblioteca de visualização de dados baseada no Matplotlib.
+- [scikit-learn](https://scikit-learn.org/stable/): Biblioteca para aprendizado de máquina e análise de dados.
+- [NumPy](https://numpy.org/): Biblioteca para manipulação de arrays multidimensionais e cálculos matemáticos.
+- [Pandas](https://pandas.pydata.org/): Biblioteca para manipulação e análise de dados em Python.
+- [random](https://docs.python.org/3/library/random.html): Módulo Python para geração de números aleatórios.
+
+Essas bibliotecas foram escolhidas para fornecer funcionalidades essenciais ao projeto, como construção de redes neurais, visualização de dados, pré-processamento de dados, métricas de avaliação e manipulação de arrays.
+<h>
+
+
 
 ## Colaboradores✨
 
