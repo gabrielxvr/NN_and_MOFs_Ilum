@@ -20,17 +20,40 @@ Por meio da computação em Python, será implementado um modelo de redes neurai
 
 O objetivo final é construir um modelo de redes neurais preciso e confiável, capaz de prever o VOID FRACTION de MOFs com base em características físico-químicas específicas. Isso pode contribuir para a seleção e o design racional de MOFs com propriedades desejadas, acelerando o processo de desenvolvimento de novos materiais porosos com aplicações em áreas como armazenamento de gases, separação seletiva de substâncias e catálise.
 <h>
-## Interpretação do Código
+## Interpretação do Código Mestre(MOFs.ipynb)
 - Importações
 - Tratamento de Dados
 - Código e Discussão
 - Divisão Treino Teste
 - Algoritmo Genético?
 
+## Interpretação do Código Auxiliar(Funções.py)
+<h> O objetivo principal do código é extrair informações relevantes dos dados e realizar operações como a geração de novas colunas e manipulação dos dados.<h>
+
+<h> O código utiliza diversas bibliotecas, como os, requests, pymatgen, numpy, pandas, random e matminer. Essas bibliotecas fornecem funcionalidades para manipulação de arquivos, requisições HTTP, manipulação de estruturas químicas, manipulação de dados numéricos, geração de números aleatórios e extração de características dos materiais.<h>
+
+<h> A função funcao_extrair_features_cif é responsável por gerar novas colunas no dataframe, contendo propriedades extraídas dos dados CIF (Crystallographic Information File) de cada material, como átomos e posições. A função adsorptions_MOF extrai informações sobre adsorção de gases em cada MOF.<h>
+
+<h> A função funcao_extrair_features_isotherms gera novas colunas no dataframe, contendo propriedades extraídas dos dados de isotherm de cada material, como a adsorção de gases em pressões variadas.<h>
+
+<h> A função count_freq_chemical conta a frequência de cada elemento químico em cada coluna do dataframe e remove colunas com valores iguais a zero ou com frequência abaixo de um valor mínimo especificado.<h>
+
+<h> A função extrair_cif extrai características estruturais-químicas dos arquivos CIF das MOFs e gera um novo dataframe contendo essas propriedades. Essas características são obtidas através da análise dos elementos químicos presentes nas MOFs e de propriedades estruturais dos CIF.<h>
+
+<h> As funções gene_mof, individuo_mof e populacao_mof são responsáveis por gerar genes, indivíduos e uma população para o problema das MOFs. Os genes representam propriedades específicas das MOFs, como número de espaço do grupo, sistema cristalino e número de operações de simetria. Os indivíduos são combinações de genes e a população é uma lista de indivíduos.<h>
+
+<h> As funções cruzamento_ponto_simples e mutacao_mof são operadores de cruzamento e mutação, respectivamente, utilizados em algoritmos genéticos para modificar os indivíduos da população.<h>
+
+<h> Por fim, a função selecao_torneio_min realiza a seleção de indivíduos da população usando o método do torneio, onde um número específico de indivíduos é selecionado com base em seu valor de fitness.<h>
+
+<h> Em resumo, o código é uma implementação em Python que lida com dados de MOFs, realiza extração de características, geração de novas colunas, manipulação de dados e aplicação de algoritmos genéticos para resolver problemas relacionados a esses materiais.<h>
+
 ## Bibliotecas Utilizadas
 
-O projeto utiliza as seguintes bibliotecas:
-
+- [Os](https://docs.python.org/3/library/os.html): Interação com o sistema operacional, incluindo manipulação de arquivos e pastas.
+- [Requests](https://docs.python-requests.org): Biblioteca para fazer requisições HTTP e obter dados de uma URL específica.
+- [Pymatgen](https://pymatgen.org): Manipulação de estruturas e materiais, como leitura de arquivos CIF, cálculos de propriedades e manipulação de estruturas cristalinas.
+- [Matminer](https://github.com/hackingmaterials/matminer): Biblioteca para extração de características de materiais a partir de dados experimentais e teóricos.
 - [PyTorch](https://pytorch.org/): Framework de aprendizado de máquina de código aberto.
 - [seaborn](https://seaborn.pydata.org/): Biblioteca de visualização de dados baseada no Matplotlib.
 - [scikit-learn](https://scikit-learn.org/stable/): Biblioteca para aprendizado de máquina e análise de dados.
