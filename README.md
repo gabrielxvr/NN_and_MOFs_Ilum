@@ -21,11 +21,139 @@ Por meio da computação em Python, será implementado um modelo de redes neurai
 O objetivo final é construir um modelo de redes neurais preciso e confiável, capaz de prever o VOID FRACTION de MOFs com base em características físico-químicas específicas. Isso pode contribuir para a seleção e o design racional de MOFs com propriedades desejadas, acelerando o processo de desenvolvimento de novos materiais porosos com aplicações em áreas como armazenamento de gases, separação seletiva de substâncias e catálise.
 <h>
 ## Interpretação do Código Mestre(MOFs.ipynb)
-- Importações
-- Tratamento de Dados
-- Código e Discussão
-- Divisão Treino Teste
-- Algoritmo Genético?
+<details>
+  <summary>Importações</summary>
+  <ul>
+    <li>
+      <code>import torch</code>: Importa o módulo torch, que é um framework de aprendizado de máquina de código aberto.
+    </li>
+    <li>
+      <code>import torch.nn as nn</code>: Importa o submódulo nn do PyTorch, que fornece ferramentas para construir redes neurais.
+    </li>
+    <li>
+      <code>import torch.optim as optim</code>: Importa o submódulo optim do PyTorch, que contém otimizadores para treinamento de modelos.
+    </li>
+    <li>
+      <code>import matplotlib.pyplot as plt</code>: Importa o módulo pyplot do Matplotlib, que é uma biblioteca de visualização de dados em Python.
+    </li>
+    <li>
+      <code>import seaborn as sns</code>: Importa o módulo seaborn, que é uma biblioteca de visualização de dados baseada no Matplotlib.
+    </li>
+    <li>
+      <code>from sklearn.model_selection import train_test_split</code>: Importa a função train_test_split do submódulo model_selection do scikit-learn, que permite dividir conjuntos de dados em treino e teste.
+    </li>
+    <li>
+      <code>from sklearn.preprocessing import MinMaxScaler</code>: Importa a classe MinMaxScaler do submódulo preprocessing do scikit-learn, que realiza a normalização dos dados.
+    </li>
+    <li>
+      <code>from sklearn.metrics import mean_squared_error</code>: Importa a função mean_squared_error do submódulo metrics do scikit-learn, que calcula o erro quadrático médio entre as previsões e os valores verdadeiros.
+    </li>
+    <li>
+      <code>import numpy as np</code>: Importa o módulo numpy, que é uma biblioteca para manipulação de arrays multidimensionais e cálculos matemáticos.
+    </li>
+    <li>
+      <code>import pandas as pd</code>: Importa o módulo pandas, que é uma biblioteca para manipulação e análise de dados em Python.
+    </li>
+    <li>
+      <code>import random</code>: Importa o módulo random, que fornece funções para geração de números aleatórios.
+    </li>
+    <li>
+      <code>from funcoes import selecao_torneio_min as funcao_selecao</code>: Importa a função selecao_torneio_min do módulo funcoes e a renomeia como funcao_selecao.
+    </li>
+    <li>
+      <code>from funcoes import cruzamento_ponto_simples as funcao_cruzamento</code>: Importa a função cruzamento_ponto_simples do módulo funcoes e a renomeia como funcao_cruzamento.
+    </li>
+  </ul>
+</details>
+
+<details>
+  <summary>Tratamento de Dados</summary>
+  <ul>
+    <li>
+      <code>df = extrair_cif(df, minimo = 5)</code>: Executa a função extrair_cif, que realiza o tratamento dos dados contidos no DataFrame df, mantendo apenas as amostras com um número mínimo de registros igual a 5.
+    </li>
+    <li>
+      <code>df.keys()</code>: Retorna as chaves (nomes das colunas) do DataFrame df.
+    </li>
+  </ul>
+</details>
+<details>
+  <summary>Divisão de Treino-Teste</summary>
+  <ul>
+    <li>
+      <code>TAMANHO_TESTE = 0.1</code>: Define o tamanho da amostra de teste como 10% do conjunto de dados total.
+    </li>
+    <li>
+      <code>SEMENTE_ALEATORIA = 61455</code>: Define a semente aleatória para garantir a reprodutibilidade dos resultados.
+    </li>
+    <li>
+      <code>FEATURES = list(df.iloc[:,2:].keys())</code>: Cria uma lista com os nomes das colunas (características) a serem usadas como entrada para o modelo.
+    </li>
+    <li>
+      <code>TARGET = ['void fraction']</code>: Define a variável alvo (porosidade do mof) a ser prevista pelo modelo.
+    </li>
+    <li>
+      <code>indices = df.index</code>: Obtém os índices das amostras do DataFrame df.
+    </li>
+    <li>
+      <code>indices_treino, indices_teste = train_test_split(indices, test_size=TAMANHO_TESTE, random_state=SEMENTE_ALEATORIA)</code>: Divide os índices das amostras em conjuntos de treino e teste, com base no tamanho do conjunto de teste e na semente aleatória.
+    </li>
+    <li>
+      <code>df_treino = df.loc[indices_treino]</code>: Seleciona as amostras de treino do DataFrame df com base nos índices de treino.
+    </li>
+    <li>
+      <code>df_teste = df.loc[indices_teste]</code>: Seleciona as amostras de teste do DataFrame df com base nos índices de teste.
+    </li>
+    <li>
+      <code>X_treino = df_treino.reindex(FEATURES, axis=1)</code>: Cria uma matriz de treino X_treino contendo apenas as colunas de características selecionadas.
+    </li>
+    <li>
+      <code>y_treino = df_treino.reindex(TARGET, axis=1)</code>: Cria um vetor de treino y_treino contendo a variável alvo (porosidade do mof).
+    </li>
+    <li>
+      <code>X_teste = df_teste.reindex(FEATURES, axis=1)</code>: Cria uma matriz de teste X_teste contendo apenas as colunas de características selecionadas.
+    </li>
+    <li>
+      <code>y_teste = df_teste.reindex(TARGET, axis=1)</code>: Cria um vetor de teste y_teste contendo a variável alvo (porosidade do mof).
+    </li>
+    <li>
+      <code>normalizador_x = MinMaxScaler()</code>: Inicializa um objeto MinMaxScaler para normalização das características de entrada.
+    </li>
+    <li>
+      <code>normalizador_y = MinMaxScaler()</code>: Inicializa um objeto MinMaxScaler para normalização da variável alvo.
+    </li>
+    <li>
+      <code>normalizador_x.fit(X_treino)</code>: Ajusta o normalizador_x aos dados de treino X_treino.
+    </li>
+    <li>
+      <code>normalizador_y.fit(y_treino)</code>: Ajusta o normalizador_y aos dados de treino y_treino.
+    </li>
+    <li>
+      <code>X_treino = normalizador_x.transform(X_treino)</code>: Aplica a normalização aos dados de treino X_treino.
+    </li>
+    <li>
+      <code>y_treino = normalizador_y.transform(y_treino)</code>: Aplica a normalização aos dados de treino y_treino.
+    </li>
+    <li>
+      <code>X_teste = normalizador_x.transform(X_teste)</code>: Aplica a normalização aos dados de teste X_teste.
+    </li>
+    <li>
+      <code>y_teste = normalizador_y.transform(y_teste)</code>: Aplica a normalização aos dados de teste y_teste.
+    </li>
+    <li>
+      <code>X_treino = torch.tensor(X_treino, dtype=torch.float32)</code>: Converte a matriz de treino X_treino em um tensor do PyTorch com tipo de dado float32.
+    </li>
+    <li>
+      <code>y_treino = torch.tensor(y_treino, dtype=torch.float32)</code>: Converte o vetor de treino y_treino em um tensor do PyTorch com tipo de dado float32.
+    </li>
+    <li>
+      <code>X_teste = torch.tensor(X_teste, dtype=torch.float32)</code>: Converte a matriz de teste X_teste em um tensor do PyTorch com tipo de dado float32.
+    </li>
+    <li>
+      <code>y_teste = torch.tensor(y_teste, dtype=torch.float32)</code>: Converte o vetor de teste y_teste em um tensor do PyTorch com tipo de dado float32.
+    </li>
+  </ul>
+</details>
 
 ## Interpretação do Código Auxiliar(Funções.py)
 <h> O objetivo principal do código é extrair informações relevantes dos dados e realizar operações como a geração de novas colunas e manipulação dos dados.<h>
